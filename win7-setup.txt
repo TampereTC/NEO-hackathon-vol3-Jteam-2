@@ -1,0 +1,13 @@
+
+
+1. In windows hosts file  (open notepad with admin rights and edit C:\Windows\System32\drivers\etc\hosts) put:
+127.0.0.1 kafka
+
+
+2. In win7 set up port forwarding from localhost kafka port 9092 to your (minikube) ip and kafka port
+netsh interface portproxy add v4tov4 listenport=9092 listenaddress=127.0.0.1 connectport=<yourKafkaControllerPort> connectaddress=<yourMinikubeIP)
+for example:
+netsh interface portproxy add v4tov4 listenport=9092 listenaddress=127.0.0.1 connectport=30320 connectaddress=192.168.99.101
+
+
+This is needed because kafka is configured to advertise kafka:9092 , so direct connection to broker at <minikubeIP>:<port> will not work. 
